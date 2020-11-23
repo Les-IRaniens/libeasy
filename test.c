@@ -1,29 +1,43 @@
 #include <string/string.h>
+#include <lists/list.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int 
 main(void)
 {
 	String str;
-	int i;
+	String str2;
+	String str3;
+
+	List lst;
+	char *dump;
+
+	init_list(&lst);
 
 	init_string(&str);
-	
-	for (i = 0; i < 10; i++)
-	{
-		push_char_string(&str, 'a');
-	}
+	init_string(&str2);
+	init_string(&str3);
 
-	printf("%s\n", as_str_string(&str));
-	clear_string(&str);
+	push_format_string(&str, "abcdef");
+	push_format_string(&str2, "Baboushka");
+	push_format_string(&str3, "Libeasypz");
 
-	for (i = 0; i < 10; i++)
-	{
-		push_char_string(&str, 'b');
-	}
+	append_list(&lst, &str, STRING);
+	append_list(&lst, &str2, STRING);
+	append_list(&lst, &str3, STRING);
 
-	printf("%s\n", as_str_string(&str));
+
+	dump =  as_str_list(&lst);
+	printf("%s\n", dump);
+
+	free_string(&str);
+	free_string(&str2);
+	free_string(&str3);
+
+	free_list(&lst);
+
+	free(dump);
+
 	return 0;
-
-
 }

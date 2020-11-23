@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -29,10 +31,7 @@ free_list(List *self)
 	{
 		list_element = get_list_element(self, i);
 
-		if (list_element.type == CHAR_PTR_MALLOC)
-		{
-			free(list_element.ptr);
-		}
+		free(list_element.ptr);
 	}
 
 	free(self->array);
@@ -44,6 +43,7 @@ void
 append_list(List *self, void *list_element, Type type)
 {
 	Element elem;
+	size_t size;
 
 	if (self->length == self->capacity) 
 	{
@@ -53,9 +53,16 @@ append_list(List *self, void *list_element, Type type)
 		assert(self->array != NULL);
 	}
 
-	elem.ptr = list_element;
+	size = sizeof(list_element);
+
+	elem.ptr = (void *) malloc(size);
+	memcpy(elem.ptr, list_element, size);
+
+	/*elem.ptr = list_element;*/
 	elem.type = type;
 
+	printf("Length: %ld\n", self->length);
+	printf("Capacity: %ld\n", self->capacity);
 	self->array[self->length++] = elem;
 }
 
@@ -77,6 +84,7 @@ as_str_list(List *self)
 	size_t i;
 	Element current;
 	String str;
+	char *return_value;
 
 	init_string(&str);
 
@@ -91,8 +99,6 @@ as_str_list(List *self)
 			case CHAR:
 			/* FALLTROUGH */
 			case CHAR_PTR:
-			/* FALLTROUGH */
-			case CHAR_PTR_MALLOC:
 				push_format_string(&str, "%s, ", (char *) current.ptr);
 				break;
 
@@ -112,6 +118,10 @@ as_str_list(List *self)
 				push_format_string(&str, "%ld, ", *((long *) current.ptr));
 				break;
 
+			case STRING:
+				push_format_string(&str, "%s, ", as_str_string((String *) current.ptr));
+				break;
+
 			default:
 				/* TYPE MANQUANT ! */
 				assert(0);
@@ -120,5 +130,9 @@ as_str_list(List *self)
 
 	pop_tovoid_char_string(&str, 2);
 	push_format_string(&str, " ]");
-	return as_str_string(&str);
+
+	return_value = strdup(as_str_string(&str));
+	free_string(&str);
+
+	return return_value;
 }

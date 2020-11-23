@@ -29,6 +29,7 @@ free_string(String *self)
 void 
 push_char_string(String *self, char c)
 {
+
     if (self->length + 1 == self->capacity)
     {
         self->capacity *= 1.25;

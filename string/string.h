@@ -2,6 +2,7 @@
 #define _LIBEASY_STRING_H_ 
 
 #include <stddef.h>
+#include <stdbool.h>
 
 #define STRING_DEFAULT_CAPACITY 32
 

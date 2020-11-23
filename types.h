@@ -5,7 +5,6 @@ typedef enum _Type
 {
     CHAR,
     CHAR_PTR,
-    CHAR_PTR_MALLOC,
     STRING,
     FLOAT,
     DOUBLE,
