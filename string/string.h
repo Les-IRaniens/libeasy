@@ -15,8 +15,9 @@ typedef struct _String
 void init_string(String *);
 void free_string(String *);
 
+void clear_string(String *);
 void push_char_string(String *, char);
-void push_string(String *, const char *, ...);
+void push_format_string(String *, const char *, ...);
 size_t len_string(String *);
 char *as_str_string(String *);
 void pop_tovoid_char_string(String *, size_t);

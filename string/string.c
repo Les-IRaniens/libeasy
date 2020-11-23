@@ -66,6 +66,13 @@ push_format_string(String *self, const char *format, ...)
     va_end(va);
 }
 
+void 
+clear_string(String *self)
+{
+    memset(self->buffer, 0, self->length);
+    self->length = 0;
+}
+
 char *
 as_str_string(String *self)
 {

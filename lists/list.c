@@ -80,7 +80,7 @@ as_str_list(List *self)
 
 	init_string(&str);
 
-	push_string(&str, "[ ");
+	push_format_string(&str, "[ ");
 
 	for (i = 0; i < len_list(self); i++)
 	{
@@ -93,23 +93,23 @@ as_str_list(List *self)
 			case CHAR_PTR:
 			/* FALLTROUGH */
 			case CHAR_PTR_MALLOC:
-				push_string(&str, "%s, ", (char *) current.ptr);
+				push_format_string(&str, "%s, ", (char *) current.ptr);
 				break;
 
 			case FLOAT:
-				push_string(&str, "%.2f, ", *((float *) current.ptr));
+				push_format_string(&str, "%.2f, ", *((float *) current.ptr));
 				break;
 
 			case DOUBLE:
-				push_string(&str, "%.2f", *((double *) current.ptr));
+				push_format_string(&str, "%.2f", *((double *) current.ptr));
 				break;
 
 			case INT:
-				push_string(&str, "%d, ", *((int *) current.ptr));
+				push_format_string(&str, "%d, ", *((int *) current.ptr));
 				break;
 
 			case LONG:
-				push_string(&str, "%ld, ", *((long *) current.ptr));
+				push_format_string(&str, "%ld, ", *((long *) current.ptr));
 				break;
 
 			default:
