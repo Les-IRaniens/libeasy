@@ -58,11 +58,9 @@ append_list(List *self, void *list_element, Type type)
 	elem.ptr = (void *) malloc(size);
 	memcpy(elem.ptr, list_element, size);
 
-	/*elem.ptr = list_element;*/
+	elem.ptr = list_element;
 	elem.type = type;
 
-	printf("Length: %ld\n", self->length);
-	printf("Capacity: %ld\n", self->capacity);
 	self->array[self->length++] = elem;
 }
 
