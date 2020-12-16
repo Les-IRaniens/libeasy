@@ -31,7 +31,11 @@ free_list(List *self)
 	{
 		list_element = get_list_element(self, i);
 
-		free(list_element.ptr);
+		if (list_element.type == CHAR_PTR)
+		{
+			free(list_element.ptr);
+		}
+
 	}
 
 	free(self->array);
@@ -43,7 +47,7 @@ void
 append_list(List *self, void *list_element, Type type)
 {
 	Element elem;
-	size_t size;
+	/* size_t size; */
 
 	if (self->length == self->capacity) 
 	{
@@ -52,11 +56,6 @@ append_list(List *self, void *list_element, Type type)
 		self->array = (Element *) realloc(self->array, self->capacity);
 		assert(self->array != NULL);
 	}
-
-	size = sizeof(list_element);
-
-	elem.ptr = (void *) malloc(size);
-	memcpy(elem.ptr, list_element, size);
 
 	elem.ptr = list_element;
 	elem.type = type;
