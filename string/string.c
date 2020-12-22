@@ -8,6 +8,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "lists/list.h"
+
 void 
 init_string(String *self)
 {
@@ -103,4 +105,21 @@ bool
 is_in_string(String *self, const char *cmp)
 {
     return strstr(self->buffer, cmp) != NULL;
+}
+
+List 
+split_string(String *self, const char *del)
+{
+    List lst;
+    char *token = strtok(self->buffer, del);
+    
+    init_list(&lst);
+
+    while (token != NULL)
+    {
+        append_list(&lst, token, STRING);
+        token = strtok(NULL, del);
+    }
+    
+    return lst;
 }

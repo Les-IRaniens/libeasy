@@ -59,7 +59,7 @@ append_list(List *self, void *list_element, Type type)
 
 	elem.ptr = list_element;
 	elem.type = type;
-
+	
 	self->array[self->length++] = elem;
 }
 

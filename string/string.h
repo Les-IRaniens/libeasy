@@ -4,6 +4,8 @@
 #include <stddef.h>
 #include <stdbool.h>
 
+#include "lists/list.h"
+
 #define STRING_DEFAULT_CAPACITY 32
 
 typedef struct _String 
@@ -23,5 +25,6 @@ void push_format_string(String *, const char *, ...);
 size_t len_string(String *);
 char *as_str_string(String *);
 void pop_tovoid_char_string(String *, size_t);
+List split_string(String *, const char *);
 
 #endif /* !_LIBEASY_STRING_H_ */
