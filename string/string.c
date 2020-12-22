@@ -99,3 +99,8 @@ pop_tovoid_char_string(String *self, size_t amount)
     self->length -= amount;
 }
 
+bool 
+is_in_string(String *self, const char *cmp)
+{
+    return strstr(self->buffer, cmp) != NULL;
+}
